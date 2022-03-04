@@ -30,8 +30,8 @@
 
     <EditText
         android:id="@+id/ed_height"
-        android:layout_width="215dp"
-        android:layout_height="60dp"
+        android:layout_width="232dp"
+        android:layout_height="64dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -46,6 +46,7 @@
         android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
+        android:onClick="bmi"
         android:text="Calculate BMI"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,11 +65,13 @@
 
     <EditText
         android:id="@+id/ed_weight"
-        android:layout_width="219dp"
-        android:layout_height="57dp"
+        android:layout_width="229dp"
+        android:layout_height="59dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
