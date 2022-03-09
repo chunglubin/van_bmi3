@@ -1,21 +1,27 @@
 package com.lubin.bmi3
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AlertDialog
 import com.lubin.bmi3.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    companion object{
-        private val TAG=MainActivity::class.java.simpleName
-    }
+    val TAG=MainActivity::class.java.simpleName
+    val REQUEST_DISPLAY_BMI=16
     lateinit var binding:ActivityMainBinding
-
+    //lateinit var launcher: ActivityResultLauncher<Unit>
+    var launcher=registerForActivityResult(NameContract()){name->
+        Log.d(TAG,":$name")
+        //Toast.makeText(this,name,Toast.LENGTH_LONG).show()
+    }//註冊一個合約，以app compat為直接的父類別
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
@@ -31,9 +37,12 @@ class MainActivity : AppCompatActivity() {
         }*/
         binding.bHelp.setOnClickListener{
             //Log.d("MainActivity","Help clicked")
-            Log.d("MainActivity", "onCreate: help clicked")//logd
-            Log.d(TAG, "Testing: ")
+            Log.d("MainActivity", "help clicked")//logd
+            //Log.d(TAG, "Testing: ")
         }
+        val launcher=registerForActivityResult(NameContract()){name->
+            Toast.makeText(this,name,Toast.LENGTH_LONG).show()
+        }//註冊一個合約，以app compat為直接的父類別
     }
 
     fun bmi(view: View){
@@ -62,6 +71,35 @@ class MainActivity : AppCompatActivity() {
         //binding.edNumber7.
         val intent= Intent(this,ResultActivity::class.java)
         intent.putExtra("BMI",bmi)//傳遞資料
-        startActivity(intent)//產生另一個畫面
+        //startActivity(intent)//產生另一個畫面
+        //startActivityForResult(intent,REQUEST_DISPLAY_BMI)
+        //registerForActivityResult(NameContract())-->activity註冊將要執行甚麼樣子的功能
+        /*registerForActivityResult(NameContract()){name->
+            Toast.makeText(this,name,Toast.LENGTH_LONG).show()
+        }//註冊一個合約，以app compat為直接的父類別*/
+        launcher.launch(null)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, ": onActivityResult")
+        if(requestCode == REQUEST_DISPLAY_BMI && resultCode == RESULT_OK){
+            Log.d(TAG, "back from ResultActivity")
+        }
+    }
+    class NameContract:ActivityResultContract<Unit,String>(){//合約
+        override fun createIntent(context: Context, input: Unit?): Intent {
+            return Intent(context,ResultActivity::class.java)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): String {
+            if(resultCode== RESULT_OK){
+                val name=intent?.getStringExtra("NAME")
+                return name!!
+            }else {
+                return "No Name"
+            }
+        }
+
     }
 }
