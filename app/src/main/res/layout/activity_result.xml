@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
-    <TextView
-        android:id="@+id/id_bmi_display"
-        android:layout_width="209dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="100dp"
-        android:text="my bmi"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/id_done"
         android:layout_width="151dp"
@@ -38,7 +25,7 @@
         android:layout_width="257dp"
         android:layout_height="67dp"
         android:layout_marginStart="77dp"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="77dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -46,5 +33,19 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_bmi_display" />
+        app:layout_constraintTop_toBottomOf="@+id/id_bmi" />
+
+    <TextView
+        android:id="@+id/id_bmi"
+        android:layout_width="127dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="137dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

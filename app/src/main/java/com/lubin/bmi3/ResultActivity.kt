@@ -8,7 +8,7 @@ import com.lubin.bmi3.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
     private val TAG=ResultActivity::class.java.simpleName
-    lateinit var binding:ActivityResultBinding
+    private lateinit var binding:ActivityResultBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityResultBinding.inflate(layoutInflater)
@@ -17,15 +17,15 @@ class ResultActivity : AppCompatActivity() {
         binding.idDone.setOnClickListener {
             val name = binding.idMyname.text.toString()
             val data = Intent()
-            data.putExtra("NAME",name)
+            data.putExtra(Extras.NAME,name)
             setResult(RESULT_OK,data)//
             finish()
-        }///in resulitActivity
+        }///in resultActivity
     }
 
     private fun showBMI() {
-        val bmi = intent.getFloatExtra("BMI_EXTRA", 0f)
+        val bmi = intent.getFloatExtra(Extras.NAME, 0f)
         Log.d(TAG, "BMI: $bmi")
-        binding.idBmiDisplay.text = bmi.toString()
+        binding.idBmi.text = bmi.toString()
     }
 }

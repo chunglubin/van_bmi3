@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d(TAG, "onCreate: ")//1-->oncreate
         /*binding.bHelp.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 TODO("Not yet implemented")
@@ -40,9 +41,9 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity", "help clicked")//logd
             //Log.d(TAG, "Testing: ")
         }
-        val launcher=registerForActivityResult(NameContract()){name->
+        /*val launcher=registerForActivityResult(NameContract()){name->
             Toast.makeText(this,name,Toast.LENGTH_LONG).show()
-        }//註冊一個合約，以app compat為直接的父類別
+        }//註冊一個合約，以app compat為直接的父類別*/
     }
 
     fun bmi(view: View){
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         //.show()//show()展示
         binding.tvBmi.text="Your BMI is $bmi"
         //binding.edNumber7.
-        val intent= Intent(this,ResultActivity::class.java)
+        //val intent= Intent(this,ResultActivity::class.java)
         intent.putExtra("BMI",bmi)//傳遞資料
         //startActivity(intent)//產生另一個畫面
         //startActivityForResult(intent,REQUEST_DISPLAY_BMI)
@@ -77,9 +78,32 @@ class MainActivity : AppCompatActivity() {
         /*registerForActivityResult(NameContract()){name->
             Toast.makeText(this,name,Toast.LENGTH_LONG).show()
         }//註冊一個合約，以app compat為直接的父類別*/
-        launcher.launch(null)
+        launcher.launch(bmi)
     }
 
+    class NameContract:ActivityResultContract<Float,String>(){//合約
+        override fun parseResult(resultCode: Int, intent: Intent?): String {
+            if (resultCode == RESULT_OK) {
+                val name = intent?.getStringExtra(Extras.NAME)
+                return name!!
+            } else {
+                return "No name"
+            }
+        }
+        override fun createIntent(context: Context, input: Float?): Intent {
+            val intent = Intent(context, ResultActivity::class.java)
+                .putExtra(Extras.BMI, input)
+            return intent
+        }
+        /*override fun parseResult(resultCode: Int, intent: Intent?): String {
+            if(resultCode== RESULT_OK){
+                val name=intent?.getStringExtra("NAME")
+                return name!!
+            }else {
+                return "No Name"
+            }
+        }*/
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, ": onActivityResult")
@@ -87,19 +111,35 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "back from ResultActivity")
         }
     }
-    class NameContract:ActivityResultContract<Unit,String>(){//合約
-        override fun createIntent(context: Context, input: Unit?): Intent {
-            return Intent(context,ResultActivity::class.java)
-        }
 
-        override fun parseResult(resultCode: Int, intent: Intent?): String {
-            if(resultCode== RESULT_OK){
-                val name=intent?.getStringExtra("NAME")
-                return name!!
-            }else {
-                return "No Name"
-            }
-        }
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart: ")
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: ")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
     }
 }
