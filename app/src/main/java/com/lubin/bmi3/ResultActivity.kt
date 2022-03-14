@@ -24,7 +24,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun showBMI() {
-        val bmi = intent.getFloatExtra(Extras.NAME, 0f)
+        val bmi = intent.getFloatExtra(Extras.BMI, 0f)
         Log.d(TAG, "BMI: $bmi")
         binding.idBmi.text = bmi.toString()
     }
