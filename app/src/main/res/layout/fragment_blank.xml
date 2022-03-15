@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/id_weight"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="108dp"
+        android:text="weight"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_height"
+        android:layout_width="123dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="height"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_weight" />
+
+    <EditText
+        android:id="@+id/input_height"
+        android:layout_width="232dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="160dp"
+        android:ems="10"
+        android:inputType="number|numberDecimal"
+        android:minHeight="48dp"
+        android:text="1.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/id_height"
+        app:layout_constraintTop_toBottomOf="@+id/id_height"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/id_bmi"
+        android:layout_width="183dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="16dp"
+        android:onClick="bmi"
+        android:text="Calculate BMI"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_height" />
+
+    <Button
+        android:id="@+id/id_help"
+        android:layout_width="114dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="32dp"
+        android:text="Help"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/tv_bmi2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bmi2" />
+
+    <EditText
+        android:id="@+id/input_weight"
+        android:layout_width="206dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="67"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/id_weight"
+        app:layout_constraintTop_toBottomOf="@+id/id_weight"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tv_bmi2"
+        android:layout_width="304dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:text=" "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/id_bmi"
+        app:layout_constraintTop_toBottomOf="@+id/id_bmi" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="114dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.757"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/number_seven" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

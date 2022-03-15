@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         /*binding.bHelp.setOnClickListener(){
             Log.d("MainActivity","I need your help!")
         }*/
-        binding.bHelp.setOnClickListener{
+        binding..setOnClickListener{
             //Log.d("MainActivity","Help clicked")
             Log.d("MainActivity", "help clicked")//logd
             //Log.d(TAG, "Testing: ")
