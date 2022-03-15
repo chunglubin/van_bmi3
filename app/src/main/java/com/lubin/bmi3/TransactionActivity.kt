@@ -67,6 +67,6 @@ class TransactionActivity : AppCompatActivity() {
         val type = binding.idTranType
     }
 }
-class Transaction (val account:String,val date:String,val amount:Int,val type:Int){
+class Transaction(val account:String,val date:String,val amount:Int,val type:Int){
 
 }

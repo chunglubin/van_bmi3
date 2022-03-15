@@ -10,13 +10,17 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.lubin.bmi3.databinding.ActivityMainBinding
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
     val TAG=MainActivity::class.java.simpleName
     val REQUEST_DISPLAY_BMI=16
     lateinit var binding:ActivityMainBinding
+    val fragments= mutableListOf<Fragment>()
     //lateinit var launcher: ActivityResultLauncher<Unit>
     var launcher=registerForActivityResult(NameContract()){name->
         Log.d(TAG,":$name")
@@ -26,7 +30,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d(TAG, "onCreate: ")//1-->oncreate
+        initFragments()
+        binding.bottomNaviBar.setOnItemReselectedListener {item->
+            when(item.itemId){
+                R.id.action_camera->{
+                    supportFragmentManager.beginTransaction().run {
+                        replace(R.id.id_container,fragments[0])
+                    }
+                    true
+                }
+                R.id.action_video_online->{
+                    true
+                }
+                R.id.action_star->{
+                    true
+                }
+                else -> true
+            }
+        }
+        //insert database
+        val t1=Transactions(1,"Lubin,","987654321",5000,1)
+        val database=Room.databaseBuilder(this,
+                            TranDataBase::class.java,"trans.db")
+            .build()
+        thread {
+            database.transactionDao().insert(t1)
+        }
+        //Log.d(TAG, "onCreate: ")//1-->oncreate
         /*binding.bHelp.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 TODO("Not yet implemented")
@@ -36,17 +66,17 @@ class MainActivity : AppCompatActivity() {
         /*binding.bHelp.setOnClickListener(){
             Log.d("MainActivity","I need your help!")
         }*/
-        binding..setOnClickListener{
+        /*binding..setOnClickListener{
             //Log.d("MainActivity","Help clicked")
             Log.d("MainActivity", "help clicked")//logd
             //Log.d(TAG, "Testing: ")
-        }
+        }*/
         /*val launcher=registerForActivityResult(NameContract()){name->
             Toast.makeText(this,name,Toast.LENGTH_LONG).show()
         }//註冊一個合約，以app compat為直接的父類別*/
     }
 
-    fun bmi(view: View){
+    /*fun bmi(view: View){
         println("hahaha!")
         var weight = binding.edWeight.text.toString().toFloat()
         var height = binding.edHeight.text.toString().toFloat()
@@ -79,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,name,Toast.LENGTH_LONG).show()
         }//註冊一個合約，以app compat為直接的父類別*/
         launcher.launch(bmi)
-    }
+    }*/
 
     class NameContract:ActivityResultContract<Float,String>(){//合約
         override fun parseResult(resultCode: Int, intent: Intent?): String {
@@ -110,6 +140,13 @@ class MainActivity : AppCompatActivity() {
         if(requestCode == REQUEST_DISPLAY_BMI && resultCode == RESULT_OK){
             Log.d(TAG, "back from ResultActivity")
         }
+    }
+
+    private fun initFragments(){
+        fragments.add(0,BlankFragment())
+        val bmiFragment=BlankFragment()
+        val transaction=supportFragmentManager.beginTransaction()
+        transaction.add(R.id.id_container,bmiFragment)
     }
 
     override fun onStart() {
